@@ -8,26 +8,25 @@
     <link rel="stylesheet" href="CssStyles\styles.css">
 </head>
 <body>
-    <!-- <% if(todayDate==="Saturday" || todayDate==="Sunday"){%>
-        <h1 style="color : green; font-style: italic;"><%= todayDate %> To do List</h1>
-    <%}else{%>
-        <h1 style="color : purple; font-style: italic;"><%= todayDate %> To do List</h1>
-    <%}%> -->
+    
     <div class="box" id="heading">
-        <h1><%= todayDate %></h1>
+        <h1><%= listTitle %></h1>
     </div>
     <div class="box">
-       
-            <% for(var i = 0;i< newItems.length;i++){%>
-            <div class="item">
-                <input type="checkbox">
-                <p><%= newItems[i] %></p>
-            </div>
-                 
-            <%}%>
+            <%newItems.forEach(element=>{%>
+                <form action="/delete" method="post">
+                    <div class="item">
+                        <input type="checkbox" name="deleteItem" value="<%= element._id%>" onchange="this.form.submit()">
+                        <p><%= element.name %></p>
+                    </div>
+                    <input type="hidden" name="deletedItem" value="<%= listTitle %>">
+                </form>
+                
+            <%});%>
+          
             <form class="item" action="/" method="post">
-                <input type="text" name="newItem" placeholder="enter new item">
-                <button type="submit" name="button">+</button>
+                <input type="text" name="newItem" placeholder="enter new item" autocomplete="off">
+                <button type="submit" name="list" value="<%= listTitle %>">+</button>
             </form>
     </div>
     
